@@ -1,0 +1,16 @@
+grande_regiao;GR;escolaridade_adj;escolaridade;rendimento_bruto_Até 39 horas de trabalho_1;rendimento_bruto_Entre 40 à 44 horas de trabalho_2;rendimento_bruto_Mais de 44 horas de trabalho_3;se_Até 39 horas de trabalho_1;se_Entre 40 à 44 horas de trabalho_2;se_Mais de 44 horas de trabalho_3;coef_cv_Até 39 horas de trabalho_1;coef_cv_Entre 40 à 44 horas de trabalho_2;coef_cv_Mais de 44 horas de trabalho_3
+1;NORTE;1;Ensino Fundamental;1261,56;1675,41;2008,37;24,95;83,90;132,05;0,02;0,05;0,07
+2;NORDESTE;1;Ensino Fundamental;972,34;1472,07;1433,61;11,62;88,19;48,41;0,01;0,06;0,03
+3;SUDESTE;1;Ensino Fundamental;1726,86;2024,01;2332,99;48,75;45,46;84,90;0,03;0,02;0,04
+4;SUL;1;Ensino Fundamental;1913,70;2210,49;3031,06;22,36;57,57;126,58;0,01;0,03;0,04
+5;CENTRO-OESTE;1;Ensino Fundamental;1861,63;2782,35;3274,92;36,97;249,81;291,37;0,02;0,09;0,09
+1;NORTE;2;Ensino Médio;1772,58;2150,82;2459,35;36,16;73,48;137,06;0,02;0,03;0,06
+2;NORDESTE;2;Ensino Médio;1479,03;1748,89;2234,26;17,88;40,76;105,37;0,01;0,02;0,05
+3;SUDESTE;2;Ensino Médio;2236,85;2290,39;3369,21;29,20;38,41;167,07;0,01;0,02;0,05
+4;SUL;2;Ensino Médio;2401,31;2824,57;3634,07;23,81;179,50;120,40;0,01;0,06;0,03
+5;CENTRO-OESTE;2;Ensino Médio;2308,89;2525,07;3426,19;43,50;102,39;134,34;0,02;0,04;0,04
+1;NORTE;3;Ensino Superior;4560,03;5493,63;7024,10;122,97;560,60;699,67;0,03;0,10;0,10
+2;NORDESTE;3;Ensino Superior;4241,60;4270,34;6006,83;147,29;357,97;433,74;0,03;0,08;0,07
+3;SUDESTE;3;Ensino Superior;5765,85;7412,62;9119,28;153,49;649,82;371,72;0,03;0,09;0,04
+4;SUL;3;Ensino Superior;5280,16;5632,85;7279,34;102,39;546,37;337,46;0,02;0,10;0,05
+5;CENTRO-OESTE;3;Ensino Superior;5687,45;5980,24;8781,94;147,81;725,07;434,47;0,03;0,12;0,05
