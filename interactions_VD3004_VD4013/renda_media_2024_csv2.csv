@@ -1,0 +1,46 @@
+grande_regiao;GR;escolaridade_adj;escolaridade;horas_habituais_adj;horas_habituais;rendimento_bruto;se;coef_cv
+1;NORTE;1;Ensino Fundamental;1;Até 39 horas de trabalho;1383,26;23,43;0,02
+2;NORDESTE;1;Ensino Fundamental;1;Até 39 horas de trabalho;1118,43;18,12;0,02
+3;SUDESTE;1;Ensino Fundamental;1;Até 39 horas de trabalho;1872,44;24,94;0,01
+4;SUL;1;Ensino Fundamental;1;Até 39 horas de trabalho;2101,85;26,52;0,01
+5;CENTRO-OESTE;1;Ensino Fundamental;1;Até 39 horas de trabalho;2093,07;56,41;0,03
+1;NORTE;2;Ensino Médio;1;Até 39 horas de trabalho;1883,83;35,27;0,02
+2;NORDESTE;2;Ensino Médio;1;Até 39 horas de trabalho;1687,57;29,02;0,02
+3;SUDESTE;2;Ensino Médio;1;Até 39 horas de trabalho;2358,36;20,07;0,01
+4;SUL;2;Ensino Médio;1;Até 39 horas de trabalho;2674,31;33,45;0,01
+5;CENTRO-OESTE;2;Ensino Médio;1;Até 39 horas de trabalho;2389,67;27,82;0,01
+1;NORTE;3;Ensino Superior;1;Até 39 horas de trabalho;4483,87;145,94;0,03
+2;NORDESTE;3;Ensino Superior;1;Até 39 horas de trabalho;4591,62;134,56;0,03
+3;SUDESTE;3;Ensino Superior;1;Até 39 horas de trabalho;5973,49;126,22;0,02
+4;SUL;3;Ensino Superior;1;Até 39 horas de trabalho;6086,35;149,05;0,02
+5;CENTRO-OESTE;3;Ensino Superior;1;Até 39 horas de trabalho;6092,80;169,93;0,03
+1;NORTE;1;Ensino Fundamental;2;Entre 40 à 44 horas de trabalho;1954,82;112,36;0,06
+2;NORDESTE;1;Ensino Fundamental;2;Entre 40 à 44 horas de trabalho;1556,44;49,90;0,03
+3;SUDESTE;1;Ensino Fundamental;2;Entre 40 à 44 horas de trabalho;2176,63;48,83;0,02
+4;SUL;1;Ensino Fundamental;2;Entre 40 à 44 horas de trabalho;2515,71;89,54;0,04
+5;CENTRO-OESTE;1;Ensino Fundamental;2;Entre 40 à 44 horas de trabalho;2599,52;89,03;0,03
+1;NORTE;2;Ensino Médio;2;Entre 40 à 44 horas de trabalho;2123,78;67,28;0,03
+2;NORDESTE;2;Ensino Médio;2;Entre 40 à 44 horas de trabalho;1895,94;48,28;0,03
+3;SUDESTE;2;Ensino Médio;2;Entre 40 à 44 horas de trabalho;2517,36;43,50;0,02
+4;SUL;2;Ensino Médio;2;Entre 40 à 44 horas de trabalho;2941,77;96,59;0,03
+5;CENTRO-OESTE;2;Ensino Médio;2;Entre 40 à 44 horas de trabalho;2721,23;75,53;0,03
+1;NORTE;3;Ensino Superior;2;Entre 40 à 44 horas de trabalho;4804,13;381,90;0,08
+2;NORDESTE;3;Ensino Superior;2;Entre 40 à 44 horas de trabalho;5168,86;450,53;0,09
+3;SUDESTE;3;Ensino Superior;2;Entre 40 à 44 horas de trabalho;6340,40;343,61;0,05
+4;SUL;3;Ensino Superior;2;Entre 40 à 44 horas de trabalho;6028,29;346,59;0,06
+5;CENTRO-OESTE;3;Ensino Superior;2;Entre 40 à 44 horas de trabalho;6683,05;437,83;0,07
+1;NORTE;1;Ensino Fundamental;3;Mais de 44 horas de trabalho;2101,90;133,89;0,06
+2;NORDESTE;1;Ensino Fundamental;3;Mais de 44 horas de trabalho;1783,87;173,82;0,10
+3;SUDESTE;1;Ensino Fundamental;3;Mais de 44 horas de trabalho;2811,44;193,73;0,07
+4;SUL;1;Ensino Fundamental;3;Mais de 44 horas de trabalho;3124,82;120,91;0,04
+5;CENTRO-OESTE;1;Ensino Fundamental;3;Mais de 44 horas de trabalho;3276,94;161,53;0,05
+1;NORTE;2;Ensino Médio;3;Mais de 44 horas de trabalho;2713,36;169,27;0,06
+2;NORDESTE;2;Ensino Médio;3;Mais de 44 horas de trabalho;2466,61;99,07;0,04
+3;SUDESTE;2;Ensino Médio;3;Mais de 44 horas de trabalho;3531,95;139,90;0,04
+4;SUL;2;Ensino Médio;3;Mais de 44 horas de trabalho;3876,28;109,53;0,03
+5;CENTRO-OESTE;2;Ensino Médio;3;Mais de 44 horas de trabalho;4081,39;173,15;0,04
+1;NORTE;3;Ensino Superior;3;Mais de 44 horas de trabalho;7528,35;571,35;0,08
+2;NORDESTE;3;Ensino Superior;3;Mais de 44 horas de trabalho;6586,37;350,45;0,05
+3;SUDESTE;3;Ensino Superior;3;Mais de 44 horas de trabalho;9522,34;564,24;0,06
+4;SUL;3;Ensino Superior;3;Mais de 44 horas de trabalho;9117,70;430,89;0,05
+5;CENTRO-OESTE;3;Ensino Superior;3;Mais de 44 horas de trabalho;8322,42;601,08;0,07
