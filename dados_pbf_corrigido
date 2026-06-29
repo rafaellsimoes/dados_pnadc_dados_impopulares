@@ -1,0 +1,328 @@
+library(dplyr)
+library(readr)
+library(httr)
+library(tidyr)
+library(ggplot2)
+library(readxl)
+library(stringr)
+
+setwd("/home/rafaelsimoes/Documentos/topicos_especiais")
+save.image("/home/rafaelsimoes/Documentos/topicos_especiais/dados_ajustados_pbf.RData")
+url2026 <- "https://aplicacoes.mds.gov.br/sagi/servicos/misocial/?fq=anomes_s:2026*&fl=codigo_ibge%2Canomes_s%2Cqtd_familias_beneficiarias_bolsa_familia_s%2Cvalor_repassado_bolsa_familia_s%2Cpbf_vlr_medio_benef_f&fq=valor_repassado_bolsa_familia_s%3A*&q=*%3A*&rows=100000&sort=anomes_s%20desc%2C%20codigo_ibge%20asc&wt=csv"
+resp2026 <- httr::GET(url2026)
+dados_pbf_2026 <- readr::read_csv(file = url2026, locale = readr::locale(encoding = "UTF-8"))
+
+url2025 <- "https://aplicacoes.mds.gov.br/sagi/servicos/misocial/?fq=anomes_s:2025*&fl=codigo_ibge%2Canomes_s%2Cqtd_familias_beneficiarias_bolsa_familia_s%2Cvalor_repassado_bolsa_familia_s%2Cpbf_vlr_medio_benef_f&fq=valor_repassado_bolsa_familia_s%3A*&q=*%3A*&rows=100000&sort=anomes_s%20desc%2C%20codigo_ibge%20asc&wt=csv"
+resp2025 <- httr::GET(url2025)
+dados_pbf_2025 <- readr::read_csv(file = url2025, locale = readr::locale(encoding = "UTF-8"))
+
+dados_pbf <- dplyr::bind_rows(dados_pbf_2026, dados_pbf_2025)
+
+url2024 <- "https://aplicacoes.mds.gov.br/sagi/servicos/misocial/?fq=anomes_s:2024*&fl=codigo_ibge%2Canomes_s%2Cqtd_familias_beneficiarias_bolsa_familia_s%2Cvalor_repassado_bolsa_familia_s%2Cpbf_vlr_medio_benef_f&fq=valor_repassado_bolsa_familia_s%3A*&q=*%3A*&rows=100000&sort=anomes_s%20desc%2C%20codigo_ibge%20asc&wt=csv"
+resp2024 <- httr::GET(url2024)
+dados_pbf_2024 <- readr::read_csv(file = url2024, locale = readr::locale(encoding = "UTF-8"))
+
+dados_pbf <- dplyr::bind_rows(dados_pbf, dados_pbf_2024)
+
+url2023 <- "https://aplicacoes.mds.gov.br/sagi/servicos/misocial/?fq=anomes_s:2023*&fl=codigo_ibge%2Canomes_s%2Cqtd_familias_beneficiarias_bolsa_familia_s%2Cvalor_repassado_bolsa_familia_s%2Cpbf_vlr_medio_benef_f&fq=valor_repassado_bolsa_familia_s%3A*&q=*%3A*&rows=100000&sort=anomes_s%20desc%2C%20codigo_ibge%20asc&wt=csv"
+resp2023 <- httr::GET(url2023)
+dados_pbf_2023 <- readr::read_csv(file = url2023, locale = readr::locale(encoding = "UTF-8"))
+
+dados_pbf <- dplyr::bind_rows(dados_pbf, dados_pbf_2023)
+
+url2021 <- "https://aplicacoes.mds.gov.br/sagi/servicos/misocial?fq=anomes_s:2021*&fq=tipo_s:mes_mu&wt=csv&q=*&fl=ibge:codigo_ibge,anomes:anomes_s,qtd_familias_beneficiarias_bolsa_familia,valor_repassado_bolsa_familia&rows=10000000&sort=anomes_s%20asc,%20codigo_ibge%20asc"
+resp2021 <- httr::GET(url2021)
+dados_pbf_2021 <- readr::read_csv(file = url2021, locale = readr::locale(encoding = "UTF-8"))
+
+dados_pbf <- dados_pbf |>
+  dplyr::rename(
+    ibge = codigo_ibge,
+    anomes = anomes_s,
+    qtd_familias_beneficiarias_bolsa_familia = qtd_familias_beneficiarias_bolsa_familia_s,
+    valor_repassado_bolsa_familia = valor_repassado_bolsa_familia_s,
+    pbf_vlr_medio_benef = pbf_vlr_medio_benef_f
+  )
+
+dados_pbf_2021 <- dados_pbf_2021 |>
+  dplyr::mutate(
+    pbf_vlr_medio_benef = valor_repassado_bolsa_familia / qtd_familias_beneficiarias_bolsa_familia
+  )
+
+dados_pbf <- dados_pbf |>
+  dplyr::mutate(
+    ibge = as.character(ibge),
+    anomes = as.character(anomes),
+    qtd_familias_beneficiarias_bolsa_familia = as.numeric(qtd_familias_beneficiarias_bolsa_familia),
+    valor_repassado_bolsa_familia = as.numeric(valor_repassado_bolsa_familia),
+    pbf_vlr_medio_benef = as.numeric(pbf_vlr_medio_benef)
+  )
+
+dados_pbf_2021 <- dados_pbf_2021 |>
+  dplyr::mutate(
+    ibge = as.character(ibge),
+    anomes = as.character(anomes),
+    qtd_familias_beneficiarias_bolsa_familia = as.numeric(qtd_familias_beneficiarias_bolsa_familia),
+    valor_repassado_bolsa_familia = as.numeric(valor_repassado_bolsa_familia),
+    pbf_vlr_medio_benef = as.numeric(pbf_vlr_medio_benef)
+  )
+
+dados_pbf <- dplyr::bind_rows(dados_pbf, dados_pbf_2021)
+
+url2020 <- "https://aplicacoes.mds.gov.br/sagi/servicos/misocial?fq=anomes_s:2020*&fq=tipo_s:mes_mu&wt=csv&q=*&fl=ibge:codigo_ibge,anomes:anomes_s,qtd_familias_beneficiarias_bolsa_familia,valor_repassado_bolsa_familia&rows=10000000&sort=anomes_s%20asc,%20codigo_ibge%20asc"
+resp2020 <- httr::GET(url2020)
+
+dados_pbf_2020 <- readr::read_csv(
+  file = url2020,
+  locale = readr::locale(encoding = "UTF-8")
+)
+
+colnames(dados_pbf_2020)
+dados_pbf_2020 <- dados_pbf_2020 |>
+  dplyr::mutate(
+    pbf_vlr_medio_benef = valor_repassado_bolsa_familia/qtd_familias_beneficiarias_bolsa_familia
+  )
+
+dados_pbf_2020 <- dados_pbf_2020 |>
+  dplyr::mutate(
+    ibge = as.character(ibge),
+    anomes = as.character(anomes),
+    qtd_familias_beneficiarias_bolsa_familia = as.numeric(qtd_familias_beneficiarias_bolsa_familia),
+    valor_repassado_bolsa_familia = as.numeric(valor_repassado_bolsa_familia),
+    pbf_vlr_medio_benef = as.numeric(pbf_vlr_medio_benef)
+  )
+dados_pbf <- dplyr::bind_rows(
+  dados_pbf,
+  dados_pbf_2020
+)
+
+url2019 <- "https://aplicacoes.mds.gov.br/sagi/servicos/misocial?fq=anomes_s:2019*&fq=tipo_s:mes_mu&wt=csv&q=*&fl=ibge:codigo_ibge,anomes:anomes_s,qtd_familias_beneficiarias_bolsa_familia,valor_repassado_bolsa_familia&rows=10000000&sort=anomes_s%20asc,%20codigo_ibge%20asc"
+resp2019 <- httr::GET(url2019)
+
+dados_pbf_2019 <- readr::read_csv(
+  file = url2019,
+  locale = readr::locale(encoding = "UTF-8")
+)
+
+dados_pbf_2019 <- dados_pbf_2019 |>
+  dplyr::mutate(
+    pbf_vlr_medio_benef = valor_repassado_bolsa_familia / qtd_familias_beneficiarias_bolsa_familia
+  )
+
+dados_pbf_2019 <- dados_pbf_2019 |>
+  dplyr::mutate(
+    ibge = as.character(ibge),
+    anomes = as.character(anomes),
+    qtd_familias_beneficiarias_bolsa_familia = as.numeric(qtd_familias_beneficiarias_bolsa_familia),
+    valor_repassado_bolsa_familia = as.numeric(valor_repassado_bolsa_familia),
+    pbf_vlr_medio_benef = as.numeric(pbf_vlr_medio_benef)
+  )
+
+dados_pbf <- dplyr::bind_rows(dados_pbf,dados_pbf_2019)
+
+url2018 <- "https://aplicacoes.mds.gov.br/sagi/servicos/misocial?fq=anomes_s:2018*&fq=tipo_s:mes_mu&wt=csv&q=*&fl=ibge:codigo_ibge,anomes:anomes_s,qtd_familias_beneficiarias_bolsa_familia,valor_repassado_bolsa_familia&rows=10000000&sort=anomes_s%20asc,%20codigo_ibge%20asc"
+resp2018 <- httr::GET(url2018)
+
+dados_pbf_2018 <- readr::read_csv(
+  file = url2018,
+  locale = readr::locale(encoding = "UTF-8")
+)
+dados_pbf_2018 <- dados_pbf_2018 |>
+  dplyr::mutate(
+    pbf_vlr_medio_benef = valor_repassado_bolsa_familia / qtd_familias_beneficiarias_bolsa_familia
+  )
+
+dados_pbf_2018 <- dados_pbf_2018 |>
+  dplyr::mutate(
+    ibge = as.character(ibge),
+    anomes = as.character(anomes),
+    qtd_familias_beneficiarias_bolsa_familia = as.numeric(qtd_familias_beneficiarias_bolsa_familia),
+    valor_repassado_bolsa_familia = as.numeric(valor_repassado_bolsa_familia),
+    pbf_vlr_medio_benef = as.numeric(pbf_vlr_medio_benef)
+  )
+
+dados_pbf <- dplyr::bind_rows(dados_pbf,dados_pbf_2018)
+
+url2017 <- "https://aplicacoes.mds.gov.br/sagi/servicos/misocial?fq=anomes_s:2017*&fq=tipo_s:mes_mu&wt=csv&q=*&fl=ibge:codigo_ibge,anomes:anomes_s,qtd_familias_beneficiarias_bolsa_familia,valor_repassado_bolsa_familia&rows=10000000&sort=anomes_s%20asc,%20codigo_ibge%20asc"
+resp2017 <- httr::GET(url2017)
+dados_pbf_2017 <- readr::read_csv(
+  file = url2017,
+  locale = readr::locale(encoding = "UTF-8")
+)
+dados_pbf_2017 <- dados_pbf_2017 |>
+  dplyr::mutate(
+    pbf_vlr_medio_benef = valor_repassado_bolsa_familia / qtd_familias_beneficiarias_bolsa_familia
+  )
+
+dados_pbf_2017 <- dados_pbf_2017 |>
+  dplyr::mutate(
+    ibge = as.character(ibge),
+    anomes = as.character(anomes),
+    qtd_familias_beneficiarias_bolsa_familia = as.numeric(qtd_familias_beneficiarias_bolsa_familia),
+    valor_repassado_bolsa_familia = as.numeric(valor_repassado_bolsa_familia),
+    pbf_vlr_medio_benef = as.numeric(pbf_vlr_medio_benef)
+  )
+
+dados_pbf <- dplyr::bind_rows(
+  dados_pbf,
+  dados_pbf_2017
+)
+
+url2016 <- "https://aplicacoes.mds.gov.br/sagi/servicos/misocial?fq=anomes_s:2016*&fq=tipo_s:mes_mu&wt=csv&q=*&fl=ibge:codigo_ibge,anomes:anomes_s,qtd_familias_beneficiarias_bolsa_familia,valor_repassado_bolsa_familia&rows=10000000&sort=anomes_s%20asc,%20codigo_ibge%20asc"
+resp2016 <- httr::GET(url2016)
+
+dados_pbf_2016 <- readr::read_csv(
+  file = url2016,
+  locale = readr::locale(encoding = "UTF-8")
+)
+dados_pbf_2016 <- dados_pbf_2016 |>
+  dplyr::mutate(
+    pbf_vlr_medio_benef = valor_repassado_bolsa_familia / qtd_familias_beneficiarias_bolsa_familia
+  )
+
+dados_pbf_2016 <- dados_pbf_2016 |>
+  dplyr::mutate(
+    ibge = as.character(ibge),
+    anomes = as.character(anomes),
+    qtd_familias_beneficiarias_bolsa_familia = as.numeric(qtd_familias_beneficiarias_bolsa_familia),
+    valor_repassado_bolsa_familia = as.numeric(valor_repassado_bolsa_familia),
+    pbf_vlr_medio_benef = as.numeric(pbf_vlr_medio_benef)
+  )
+dados_pbf <- dplyr::bind_rows(dados_pbf,dados_pbf_2016)
+
+url2015 <- "https://aplicacoes.mds.gov.br/sagi/servicos/misocial?fq=anomes_s:2015*&fq=tipo_s:mes_mu&wt=csv&q=*&fl=ibge:codigo_ibge,anomes:anomes_s,qtd_familias_beneficiarias_bolsa_familia,valor_repassado_bolsa_familia&rows=10000000&sort=anomes_s%20asc,%20codigo_ibge%20asc"
+dados_pbf_2015 <- readr::read_csv(
+  file = url2015,
+  locale = readr::locale(encoding = "UTF-8")
+)
+
+dados_pbf_2015 <- dados_pbf_2015 |>
+  dplyr::mutate(
+    pbf_vlr_medio_benef = valor_repassado_bolsa_familia / qtd_familias_beneficiarias_bolsa_familia
+  )
+dados_pbf_2015 <- dados_pbf_2015 |>
+  dplyr::mutate(
+    ibge = as.character(ibge),
+    anomes = as.character(anomes),
+    qtd_familias_beneficiarias_bolsa_familia = as.numeric(qtd_familias_beneficiarias_bolsa_familia),
+    valor_repassado_bolsa_familia = as.numeric(valor_repassado_bolsa_familia),
+    pbf_vlr_medio_benef = as.numeric(pbf_vlr_medio_benef)
+  )
+
+dados_pbf <- dplyr::bind_rows(dados_pbf,dados_pbf_2015)
+
+url2014 <- "https://aplicacoes.mds.gov.br/sagi/servicos/misocial?fq=anomes_s:2014*&fq=tipo_s:mes_mu&wt=csv&q=*&fl=ibge:codigo_ibge,anomes:anomes_s,qtd_familias_beneficiarias_bolsa_familia,valor_repassado_bolsa_familia&rows=10000000&sort=anomes_s%20asc,%20codigo_ibge%20asc"
+resp2014 <- httr::GET(url2014)
+
+dados_pbf_2014 <- readr::read_csv(
+  file = url2014,
+  locale = readr::locale(encoding = "UTF-8")
+)
+
+dados_pbf_2014 <- dados_pbf_2014 |>
+  dplyr::mutate(
+    pbf_vlr_medio_benef = valor_repassado_bolsa_familia/qtd_familias_beneficiarias_bolsa_familia
+  )
+
+dados_pbf_2014 <- dados_pbf_2014 |>
+  dplyr::mutate(
+    ibge = as.character(ibge),
+    anomes = as.character(anomes),
+    qtd_familias_beneficiarias_bolsa_familia = as.numeric(qtd_familias_beneficiarias_bolsa_familia),
+    valor_repassado_bolsa_familia = as.numeric(valor_repassado_bolsa_familia),
+    pbf_vlr_medio_benef = as.numeric(pbf_vlr_medio_benef)
+  )
+
+
+dados_pbf <- dplyr::bind_rows(dados_pbf,dados_pbf_2014) 
+
+url2013 <- "https://aplicacoes.mds.gov.br/sagi/servicos/misocial?fq=anomes_s:2013*&fq=tipo_s:mes_mu&wt=csv&q=*&fl=ibge:codigo_ibge,anomes:anomes_s,qtd_familias_beneficiarias_bolsa_familia,valor_repassado_bolsa_familia&rows=10000000&sort=anomes_s%20asc,%20codigo_ibge%20asc"
+resp2013 <- httr::GET(url2013)
+dados_pbf_2013 <- readr::read_csv(
+  file = url2013,
+  locale = readr::locale(encoding = "UTF-8")
+)
+dados_pbf_2013 <- dados_pbf_2013 |>
+  dplyr::mutate(
+    pbf_vlr_medio_benef = valor_repassado_bolsa_familia / qtd_familias_beneficiarias_bolsa_familia
+  )
+
+dados_pbf_2013 <- dados_pbf_2013 |>
+  dplyr::mutate(
+    ibge = as.character(ibge),
+    anomes = as.character(anomes),
+    qtd_familias_beneficiarias_bolsa_familia = as.numeric(qtd_familias_beneficiarias_bolsa_familia),
+    valor_repassado_bolsa_familia = as.numeric(valor_repassado_bolsa_familia),
+    pbf_vlr_medio_benef = as.numeric(pbf_vlr_medio_benef)
+  )
+dados_pbf <- dplyr::bind_rows(
+  dados_pbf,
+  dados_pbf_2013
+)
+
+url2012 <- "https://aplicacoes.mds.gov.br/sagi/servicos/misocial?fq=anomes_s:2012*&fq=tipo_s:mes_mu&wt=csv&q=*&fl=ibge:codigo_ibge,anomes:anomes_s,qtd_familias_beneficiarias_bolsa_familia,valor_repassado_bolsa_familia&rows=10000000&sort=anomes_s%20asc,%20codigo_ibge%20asc"
+resp2012 <- httr::GET(url2012)
+
+dados_pbf_2012 <- readr::read_csv(
+  file = url2012,
+  locale = readr::locale(encoding = "UTF-8")
+)
+
+dados_pbf_2012 <- dados_pbf_2012 |>
+  dplyr::mutate(
+    pbf_vlr_medio_benef = valor_repassado_bolsa_familia / qtd_familias_beneficiarias_bolsa_familia
+  )
+
+dados_pbf_2012 <- dados_pbf_2012 |>
+  dplyr::mutate(
+    ibge = as.character(ibge),
+    anomes = as.character(anomes),
+    qtd_familias_beneficiarias_bolsa_familia = as.numeric(qtd_familias_beneficiarias_bolsa_familia),
+    valor_repassado_bolsa_familia = as.numeric(valor_repassado_bolsa_familia),
+    pbf_vlr_medio_benef = as.numeric(pbf_vlr_medio_benef)
+  )
+
+dados_pbf <- dplyr::bind_rows(dados_pbf,dados_pbf_2012)
+
+url2011 <- "https://aplicacoes.mds.gov.br/sagi/servicos/misocial?fq=anomes_s:2011*&fq=tipo_s:mes_mu&wt=csv&q=*&fl=ibge:codigo_ibge,anomes:anomes_s,qtd_familias_beneficiarias_bolsa_familia,valor_repassado_bolsa_familia&rows=10000000&sort=anomes_s%20asc,%20codigo_ibge%20asc"
+resp2011 <- httr::GET(url2011)
+dados_pbf_2011 <- readr::read_csv(
+  file = url2011,
+  locale = readr::locale(encoding = "UTF-8")
+)
+
+dados_pbf_2011 <- dados_pbf_2011 |>
+  dplyr::mutate(
+    pbf_vlr_medio_benef = valor_repassado_bolsa_familia/qtd_familias_beneficiarias_bolsa_familia
+  )
+
+dados_pbf_2011 <- dados_pbf_2011 |>
+  dplyr::mutate(
+    ibge = as.character(ibge),
+    anomes = as.character(anomes),
+    qtd_familias_beneficiarias_bolsa_familia = as.numeric(qtd_familias_beneficiarias_bolsa_familia),
+    valor_repassado_bolsa_familia = as.numeric(valor_repassado_bolsa_familia),
+    pbf_vlr_medio_benef = as.numeric(pbf_vlr_medio_benef)
+  )
+
+dados_pbf <- dplyr::bind_rows(dados_pbf,dados_pbf_2011)
+
+url2010 <- "https://aplicacoes.mds.gov.br/sagi/servicos/misocial?fq=anomes_s:2010*&fq=tipo_s:mes_mu&wt=csv&q=*&fl=ibge:codigo_ibge,anomes:anomes_s,qtd_familias_beneficiarias_bolsa_familia,valor_repassado_bolsa_familia&rows=10000000&sort=anomes_s%20asc,%20codigo_ibge%20asc"
+resp2010 <- httr::GET(url2010)
+
+dados_pbf_2010 <- readr::read_csv(
+  file = url2010,
+  locale = readr::locale(encoding = "UTF-8")
+)
+
+dados_pbf_2010 <- dados_pbf_2010 |>
+  dplyr::mutate(
+    pbf_vlr_medio_benef = valor_repassado_bolsa_familia / qtd_familias_beneficiarias_bolsa_familia
+  )
+dados_pbf_2010 <- dados_pbf_2010 |>
+  dplyr::mutate(
+    ibge = as.character(ibge),
+    anomes = as.character(anomes),
+    qtd_familias_beneficiarias_bolsa_familia = as.numeric(qtd_familias_beneficiarias_bolsa_familia),
+    valor_repassado_bolsa_familia = as.numeric(valor_repassado_bolsa_familia),
+    pbf_vlr_medio_benef = as.numeric(pbf_vlr_medio_benef)
+  )
